@@ -5,16 +5,21 @@ __all__ = ["MagentoAPI"]
 class MagentoAPI(object):
     PATH = "/magento/api/xmlrpc"
 
-    def __init__(self, host, port, api_user, api_key, path=None, allow_none=False, verbose=False):
+    def __init__(self, host, port, api_user, api_key, path=None, allow_none=False, verbose=False, https=False):
         """Logs the client into Magento's API and discovers methods available
         to it. Throws an exception if logging in fails."""
+		if https:
+			self._proto = 'https'
+		else:
+			self._proto = 'http'
+
         if path is None:
             path = MagentoAPI.PATH
         self._api_user = api_user
         self._api_key = api_key
         self._host = host
         self._port = str(port)
-        self._uri = "http://%s:%s" % (self._host, self._port) + path
+        self._uri = "%s://%s:%s" % (self._proto, self._host, self._port) + path
 
         self._client = xmlrpclib.ServerProxy(self._uri, allow_none=allow_none, verbose=verbose)
         self.login()
