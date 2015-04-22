@@ -8,10 +8,10 @@ class MagentoAPI(object):
     def __init__(self, host, port, api_user, api_key, path=None, allow_none=False, verbose=False, https=False):
         """Logs the client into Magento's API and discovers methods available
         to it. Throws an exception if logging in fails."""
-		if https:
-			self._proto = 'https'
-		else:
-			self._proto = 'http'
+        if https:
+            self._proto = 'https'
+        else:
+            self._proto = 'http'
 
         if path is None:
             path = MagentoAPI.PATH
